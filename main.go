@@ -29,7 +29,7 @@ func main() {
 		{
 			Address: common.HexToAddress("0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D"),
 			Name:    "totalSupply()",
-			Output:  mc.Int256,
+			Output:  mc.Uint256,
 		},
 		{
 			Address: common.HexToAddress("0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D"),

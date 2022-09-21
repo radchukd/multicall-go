@@ -26,6 +26,7 @@ type Call struct {
 	Params  []abi.Type
 	Values  []any
 	Output  abi.Type
+	ParseFN func([]byte) any
 	Result  any
 }
 
@@ -127,7 +128,13 @@ func parseResponse(res multicallResult, calls *[]Call) {
 		}
 
 		callOutputType := (*calls)[retIndex].Output.String()
+		callParseFN := (*calls)[retIndex].ParseFN
 		callRes := &((*calls)[retIndex].Result)
+
+		if !reflect.ValueOf(callParseFN).IsNil() {
+			*callRes = callParseFN(retData.Data)
+			continue
+		}
 
 		switch callOutputType {
 		case Bool.String():
